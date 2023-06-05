@@ -5,12 +5,12 @@ import { AuthService } from "./auth.service";
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    @Post('signup')
+    @Post('Sign In')
     signup() {
         return this.authService.signup()
     }
 
-    @Post('signin')
+    @Post('Log In')
     signin() {
         return this.authService.signin()
     }
