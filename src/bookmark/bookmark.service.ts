@@ -15,6 +15,11 @@ export class BookmarkService {
         return bookmarks;
     }
 
+    async findById(bookmarkid: string): Promise<Bookmark> {
+        const bookmark = await this.bookmarkModel.findById(bookmarkid);
+        return bookmark;
+    }
+
     async create(bookmark : Bookmark): Promise<Bookmark> {
         const res = await this.bookmarkModel.create(bookmark);
         return res;
