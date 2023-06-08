@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { BookmarkService } from './bookmark.service';
 import { Bookmark } from './schemas/bookmark.schema';
 
@@ -9,6 +9,14 @@ export class BookmarkController {
     @Get()
     async getAllBookmarks(): Promise<Bookmark[]> {
         return this.bookmarkService.findAll();
+    }
+
+    @Get(':bookmarkid')
+    async getBook(
+        @Param('bookmarkid')
+         bookmarkid: string,
+    ): Promise<Bookmark> {
+        return this.bookmarkService.findById(bookmarkid);
     }
 
     @Post()
