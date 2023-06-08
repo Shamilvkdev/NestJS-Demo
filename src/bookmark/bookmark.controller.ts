@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { BookmarkService } from './bookmark.service';
 import { Bookmark } from './schemas/bookmark.schema';
+import { UpdateBookmarkDTO } from 'src/dto/updateDTO';
 
 @Controller('bookmark')
 export class BookmarkController {
@@ -12,7 +13,7 @@ export class BookmarkController {
     }
 
     @Get(':bookmarkid')
-    async getBook(
+    async getBookmark(
         @Param('bookmarkid')
          bookmarkid: string,
     ): Promise<Bookmark> {
@@ -25,5 +26,15 @@ export class BookmarkController {
     bookmark,
     ): Promise<Bookmark> {
         return this.bookmarkService.create(bookmark);
+    }
+
+    @Put(':bookmarkid')
+    async UpdateBookmark(
+        @Param('bookmarkid')
+         bookmarkid: string,
+         @Body()
+         bookmark: UpdateBookmarkDTO,
+    ): Promise<Bookmark> {
+        return this.bookmarkService.UpdateById(bookmarkid, bookmark);
     }
 }

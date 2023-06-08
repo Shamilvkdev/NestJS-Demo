@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Bookmark } from './schemas/bookmark.schema';
 import * as mongoose from 'mongoose';
@@ -17,7 +17,19 @@ export class BookmarkService {
 
     async findById(bookmarkid: string): Promise<Bookmark> {
         const bookmark = await this.bookmarkModel.findById(bookmarkid);
+
+        if (!bookmark) {
+            throw new NotFoundException('Book not found');
+        }
+
         return bookmark;
+    }
+
+    async UpdateById(bookmarkid: string, bookmark: Bookmark): Promise<Bookmark> {
+        return await this.bookmarkModel.findByIdAndUpdate(bookmarkid, bookmark, {
+            new : true,
+            runValidators: true,
+    });
     }
 
     async create(bookmark : Bookmark): Promise<Bookmark> {
