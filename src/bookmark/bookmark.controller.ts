@@ -21,8 +21,8 @@ export class BookmarkController {
     }
 
     @Post()
-    async createAllBookmarks
-    (@Body()
+    async createAllBookmarks(
+    @Body()
     bookmark,
     ): Promise<Bookmark> {
         return this.bookmarkService.create(bookmark);
