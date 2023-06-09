@@ -5,12 +5,14 @@ export enum Category {
     CLASSICS = 'Classics',
     CRIME = 'Crime',
     FANTASY = ' Fantasy',
-    ROMANCE = 'Romance'
+    ROMANCE = 'Romance',
+    THRILLER = 'Thriller'
 }
 
 @Schema({
     timestamps: true
 })
+
 export class Bookmark {
 
     @Prop()
