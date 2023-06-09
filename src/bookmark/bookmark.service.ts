@@ -33,7 +33,7 @@ export class BookmarkService {
     async UpdateById(bookmarkid: string, bookmark: Bookmark): Promise<Bookmark> {
         return await this.bookmarkModel.findByIdAndUpdate(bookmarkid, bookmark, {
             new : true,
-            runValidators: true,
+            runValidators: true
     });
     }
 
