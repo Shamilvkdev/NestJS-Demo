@@ -13,6 +13,10 @@ export class BookmarkService {
 
     async findAll(query : Query): Promise<Bookmark[]> {
 
+        const booksInPage = 2;
+        const initialPage = Number(query.page) || 1;
+        const skip = booksInPage * (initialPage - 1);
+
         const bookname = query.bookname ? {
             title: {
                 $regex: query.bookname,
@@ -20,7 +24,10 @@ export class BookmarkService {
             }
         } : {}
 
-        const bookmarks = await this.bookmarkModel.find( { ...bookname } );
+        const bookmarks = await this.bookmarkModel
+        .find({ ...bookname })
+        .limit(booksInPage)
+        .skip(skip)
         return bookmarks;
     }
 
@@ -51,3 +58,7 @@ export class BookmarkService {
     }
 
 }
+function limit(booksInPage: number) {
+    throw new Error('Function not implemented.');
+}
+
