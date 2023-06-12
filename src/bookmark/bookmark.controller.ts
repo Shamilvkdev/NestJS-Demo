@@ -1,15 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { BookmarkService } from './bookmark.service';
 import { Bookmark } from './schemas/bookmark.schema';
 import { UpdateBookmarkDTO } from 'src/dto/updateDTO';
+import { Query as ExpressQuery } from 'express-serve-static-core'
 
 @Controller('bookmark')
 export class BookmarkController {
     constructor(private bookmarkService: BookmarkService) {}
 
     @Get()
-    async getAllBookmarks(): Promise<Bookmark[]> {
-        return this.bookmarkService.findAll();
+    async getAllBookmarks(@Query() query: ExpressQuery): Promise<Bookmark[]> {
+        return this.bookmarkService.findAll(query);
     }
 
     @Get(':bookmarkid')
