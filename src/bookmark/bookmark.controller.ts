@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { BookmarkService } from './bookmark.service';
 import { Bookmark } from './schemas/bookmark.schema';
 import { UpdateBookmarkDTO } from 'src/dto/updateDTO';
+import { CreateBookmarkDTO } from 'src/dto/bookmark.dto';
 import { Query as ExpressQuery } from 'express-serve-static-core'
 
 @Controller('bookmark')
@@ -22,9 +23,9 @@ export class BookmarkController {
     }
 
     @Post()
-    async createAllBookmarks(
+    async createBookmarks(
          @Body()
-         bookmark,
+         bookmark: CreateBookmarkDTO,
     ): Promise<Bookmark> {
         return this.bookmarkService.create(bookmark);
     }
