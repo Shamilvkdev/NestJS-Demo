@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Bookmark } from './schemas/bookmark.schema';
 import * as mongoose from 'mongoose';
@@ -37,6 +37,13 @@ export class BookmarkService {
     }
 
     async findById(bookmarkid: string): Promise<Bookmark> {
+
+        const isValidId = mongoose.isValidObjectId(bookmarkid)
+
+        if (!isValidId) {
+            throw new BadRequestException('please enter a valid id');
+        }
+
         const bookmark = await this.bookmarkModel.findById(bookmarkid);
 
         if (!bookmark) {
