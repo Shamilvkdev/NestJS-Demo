@@ -13,6 +13,6 @@ export class SignUpDto {
 
     @IsNotEmpty()
     @IsString()
-    @MinLength(8)
+    @MinLength(7)
     readonly password: string;
 }
